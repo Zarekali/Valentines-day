@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Quiz 💖</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffe6f2;
+            color: #d63384;
+        }
+        .quiz-container {
+            background: white;
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background-color: #ff4d79;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #ff3366;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>TIME TO TEST OUR LOVE 💘</h1>
+        <p id="question">Loading question...</p>
+        <div id="answers"></div>
+        <button onclick="nextQuestion()">Next</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const quizData = [
+            { question: "What date did I ask you out?", options: ["Nov 4th, 2018", "Nov 4th, 2017", "Nov 6th, 2018"], answer: "Nov 4th, 2017" },
+            { question: "Which cruise was our first together?", options: ["Carnival breeze", "Carnival vista", "Adventure of the seas"], answer: "Adventure of the seas" },
+            { question: "What's our dream vacation spot?", options: ["Jamaica", "Tokyo", "Greece"], answer: "Tokyo" },
+            { question: "How many total nieces/nephews do we have?", options: ["5", "3", "2"], answer: "5" },
+            { question: "Who is the best at videogames?", options: ["Zarek", "Alexis", "Even"], answer: "Alexis" }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            if (currentQuestion >= quizData.length) {
+                document.getElementById("question").innerText = "You got " + score + " out of " + quizData.length + " right! 💖";
+                document.getElementById("answers").innerHTML = "";
+                document.getElementById("result").innerText = "You win an eternity with me!";
+                return;
+            }
+            const data = quizData[currentQuestion];
+            document.getElementById("question").innerText = data.question;
+            const answersDiv = document.getElementById("answers");
+            answersDiv.innerHTML = "";
+            data.options.forEach(option => {
+                const button = document.createElement("button");
+                button.innerText = option;
+                button.onclick = () => checkAnswer(option);
+                answersDiv.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selected) {
+            if (selected === quizData[currentQuestion].answer) {
+                score++;
+            }
+            currentQuestion++;
+            loadQuestion();
+        }
+
+        function nextQuestion() {
+            loadQuestion();
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
 
